@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link type="text/css" rel="stylesheet" th:href="@{css/bootstrap.min.css}" />
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	<title>ProductList</title>
+</head>
+<body>
+	<div class="container">
+		<div class="col-md-4">
+			<h1>All Products</h1>
+		</div>
+		
+		<div class="col-md-4" style="padding:20px ">
+			<button sec:authorize="hasAuthority('ADMIN')" onclick="location.href='/add'" class="btn btn-sm btn-success" style="width: 100px; height: 40px;">Add a product</button>
+			<button sec:authorize="hasAuthority('ADMIN')" onclick="location.href='/manufacturerlist'" class="btn btn-sm btn-success" style="width: 100px; height: 40px;">Manufacturers</button>
+			<button onclick="location.href='/index'" class="btn btn-sm btn-secondary" style="width: 120px;height: 40px;">back to main page</button>
+			
+		</div>
+		<div class="col-md-4">
+			<p>Signed in as <strong sec:authentication="name"></strong>. Roles: <strong sec:authentication="principal.authorities"></strong></p>
+		</div>
+			<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Color</th>
+					<th>Size</th>
+					<th>Price</th>
+					<th>Manufacturer</th>
+					<th>Units in stock</th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="product : ${products}">
+					<td th:text="${product.getName()}"></td>
+					<td th:text="${product.type.getTypeName()}"></td>
+					<td th:text="${product.getColor()}"></td>
+					<td th:text="${product.getSize()}"></td>
+					<td th:text="${product.getPrice()}+€"></td>
+					<td th:text="${product.manufacturer.getName()}"></td>
+					<td th:text="${product.getUnitsInStock()}"></td>
+					<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/deleteproduct/{id}(id=${product.id})}" class="btn btn-xs btn-danger" style="width: 65px; height: 20px;">Delete</a></td>
+					<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/edit/{id}(id=${product.id})}" class="btn btn-xs btn-primary" style="width: 65px; height: 20px; margin-bottom: 3%">Edit</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

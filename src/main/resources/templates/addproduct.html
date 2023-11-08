@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+	<title>ProductList</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+	<div class="container">
+    	<h1>Add a product</h1>
+		<form th:object="${product}" th:action="@{save}" action="#" method="post">
+		  	<label for="name">Name</label>
+			<input type="text" id="name" th:field="*{name}" />
+			<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
+			<div style="clear: both; display: block; height: 10px;"></div>
+			<label for="typelist">Type</label>
+			 <select id="typelist" th:field="*{type}" class="form-control">
+       			<option th:each="type: ${types}" th:value="${type.id}" th:text="${type.typeName}"></option>
+    		</select>
+    		<div style="clear: both; display: block; height: 10px;"></div>
+		  	<label for="color">Color</label>
+			<input type="text" id="color" th:field="*{color}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+		  	<label for="size">Size</label>
+			<input type="text" id="size" th:field="*{size}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+			<label for="price">Price</label>
+			<input type="text" id="price" th:field="*{price}" />
+			<div th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Price error</div>
+			<div style="clear: both; display: block; height: 10px;"></div>
+			<label for="manlist">Manufacturer</label>
+			 <select id="manlist" th:field="*{manufacturer}" class="form-control">
+       			<option th:each="manufacturer: ${manufacturers}" th:value="${manufacturer.id}" th:text="${manufacturer.name}"></option>
+    		</select>
+			<div style="clear: both; display: block; height: 10px;"></div>
+			<input type="submit" class="btn btn-success" value="Save" style="width: 120px;height: 40px;"></input>
+		</form>
+		<button onclick="location.href='/productlist'" class="btn btn-danger" style="width: 120px;height: 40px;">Cancel</button>
+	</div>
+</body>
+</html>

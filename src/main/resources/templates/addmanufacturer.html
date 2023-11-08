@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+	<title>ManufacturerList</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+	<div class="container">
+    	<h1>Add a manufacturer</h1>
+		<form th:object="${manufacturer}" th:action="@{savemanufacturer}" action="#" method="post">
+		  	<label for="name">Name</label>
+			<input type="text" id="name" th:field="*{name}" />
+			<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">name has an error</div>
+			<div style="clear: both; display: block; height: 10px;"></div>
+			<input type="submit" class="btn btn-success" value="Save" style="width: 120px;height: 40px;"></input>
+		</form>
+		<button onclick="location.href='/manufacturerlist'" class="btn btn-danger" style="width: 120px;height: 40px;">Cancel</button>
+	</div>
+</body>
+</html>

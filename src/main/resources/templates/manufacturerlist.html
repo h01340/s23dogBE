@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>ManufacturerList</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+	<script defer src="/scripts/main.js"></script>
+</head>
+<body>
+	<div class="container">
+	<div class="col-md-4">
+		<h4 th:if="${param.cannotdelete}">
+			Cannot delete manufacturer. It has products in the system.
+		</h4>
+    	<h1>Manufacturer List</h1>
+    	</div>
+    	<div class="col-md-4" style="padding:20px 0">
+			<button sec:authorize="hasAuthority('ADMIN')" onclick="location.href='/addmanufacturer'" class="btn btn-sm btn-success button_style1" style="width: 120px;height: 40px;">Add a manufacturer</button>
+			<button sec:authorize="hasAuthority('ADMIN')" onclick="location.href='/productlist'" class="btn btn-sm btn-success" style="width: 120px;height: 40px;">Product list</button>
+			<button onclick="location.href='/index'" class="btn btn-sm btn-secondary button_style1" style="width: 120px;height: 40px;">back to main page</button>
+			
+		</div>
+    	<table class="table table-striped">
+    		<tr>
+		    	<th>Manufacturer</th>
+		    	
+		    	<th></th>
+		    	<th></th>
+			</tr>
+    		<tr th:each = "manufacturer : ${manufacturers}">
+    			<td th:text="${manufacturer.name}"></td>
+				<td><button
+					th:onclick="confirmDeleteManufacturer([[${manufacturer.id}]])"
+					class="btn btn-danger">Delete</button></td>
+				<td><a
+					th:href="@{/manufacturerProducts/{id}(id=${manufacturer.id})}"
+					class="btn btn-success">Products</a></td>
+			</tr>
+    	</table>
+    </div>
+</body>
+</html>
