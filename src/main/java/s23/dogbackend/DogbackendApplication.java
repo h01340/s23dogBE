@@ -20,7 +20,6 @@ public class DogbackendApplication {
 	private static final Logger log = LoggerFactory.getLogger(SpringBootApplication.class);
 
 	public static void main(String[] args) {
-
 		SpringApplication.run(DogbackendApplication.class, args);
 	}
 

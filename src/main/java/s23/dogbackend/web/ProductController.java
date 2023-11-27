@@ -86,4 +86,14 @@ public class ProductController {
 		return "redirect:productlist";
 	}
 
+	// TODO: test this method
+	@GetMapping("/search/{searchString}")
+	public String productByFilter(@PathVariable String searchString, Model model) {
+		log.info("lets search some products " + searchString);
+		List<Product> products = (List<Product>) productRepository.findByFilter(searchString);
+		log.info("products now " + products);
+		model.addAttribute("products", products);
+		return "productlist";
+	}
+
 }
