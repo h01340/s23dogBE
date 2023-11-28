@@ -42,6 +42,7 @@ public class ProductController {
 
 	@GetMapping("/productlist")
 	public String productlist(Model model) {
+		log.info("select products from db");
 		List<Product> products = (List<Product>) productRepository.findAll();
 		model.addAttribute("products", products);
 		return "productlist";
@@ -65,6 +66,7 @@ public class ProductController {
 
 	@RequestMapping(value = "/add")
 	public String addProduct(Model model) {
+		log.info("open add product page");
 		model.addAttribute("product", new Product());
 		model.addAttribute("manufacturers", manufacturerRepository.findAll());
 		model.addAttribute("types", typerepository.findAll());
