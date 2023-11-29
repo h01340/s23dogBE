@@ -59,6 +59,7 @@ public class ManufacturerController {
 
 	@GetMapping("/deletemanufacturer/{id}")
 	public String deleteProduct(@PathVariable("id") Long manufacturerId) {
+		log.info("delete manufacturer " + manufacturerId);
 		// Cancel if manufacturer has products
 		for (Product product : productRepository.findAll()) {
 			if (product.getManufacturer().getId().equals(manufacturerId)) {

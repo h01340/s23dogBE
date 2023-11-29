@@ -11,6 +11,7 @@
 	<div class="col-md-4">
 		<h4 th:if="${param.cannotdelete}">
 			Cannot delete manufacturer. It has products in the system.
+			Remove first products. 
 		</h4>
     	<h1>Manufacturer List</h1>
     	</div>
@@ -29,9 +30,14 @@
 			</tr>
     		<tr th:each = "manufacturer : ${manufacturers}">
     			<td th:text="${manufacturer.name}"></td>
+    			<td sec:authorize="hasAuthority('ADMIN')">
+    				<a th:href="@{/deletemanufacturer/{id}(id=${manufacturer.id})}" class="btn btn-xs btn-danger" style="width: 65px; height: 20px;">Delete</a></td>
+					
+					<!--  TODO CONFIRMATION 
 				<td><button
 					th:onclick="confirmDeleteManufacturer([[${manufacturer.id}]])"
 					class="btn btn-danger">Delete</button></td>
+					 -->
 				<td><a
 					th:href="@{/manufacturerProducts/{id}(id=${manufacturer.id})}"
 					class="btn btn-success">Products</a></td>
